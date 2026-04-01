@@ -1,0 +1,56 @@
+# Fairness Analysis Configuration
+fairness:
+  enabled: true
+  
+# Protected attributes
+protected_attributes:
+  - age_group
+  - gender
+  - department
+  - role_level
+
+# Fairness metrics
+metrics:
+  demographic_parity:
+    enabled: true
+    threshold: 0.1  # Maximum allowed difference
+  equalized_odds:
+    enabled: true
+    threshold: 0.1
+  equal_opportunity:
+    enabled: true
+    threshold: 0.1
+  calibration:
+    enabled: true
+    threshold: 0.05
+
+# Bias mitigation
+mitigation:
+  enabled: true
+  methods:
+    - reweighing
+    - adversarial_debiasing
+    - threshold_optimization
+  reweighing:
+    enabled: true
+  adversarial_debiasing:
+    enabled: false  # Requires additional setup
+    adversary_loss_weight: 0.1
+    num_epochs: 50
+  threshold_optimization:
+    enabled: true
+    objective: "demographic_parity"
+
+# Analysis settings
+analysis:
+  bootstrap_samples: 1000
+  confidence_level: 0.95
+  subgroup_analysis: true
+  intersectional_analysis: true
+  
+# Reporting
+reporting:
+  generate_report: true
+  output_format: "html"  # html, pdf, json
+  include_visualizations: true
+  include_recommendations: true

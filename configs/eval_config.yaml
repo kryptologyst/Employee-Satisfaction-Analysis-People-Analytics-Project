@@ -1,0 +1,77 @@
+# Evaluation Configuration
+evaluation:
+  # Data settings
+  data:
+    test_size: 0.2
+    validation_size: 0.2
+    random_state: 42
+    stratify: true
+    
+  # Metrics to compute
+  metrics:
+    classification:
+      - accuracy
+      - precision_macro
+      - recall_macro
+      - f1_macro
+      - f1_weighted
+      - auroc
+      - auprc
+      - confusion_matrix
+    regression:
+      - mae
+      - rmse
+      - mape
+      - smape
+      - r2
+      - explained_variance
+    calibration:
+      - brier_score
+      - expected_calibration_error
+      - reliability_diagram
+    fairness:
+      - demographic_parity
+      - equalized_odds
+      - equal_opportunity
+      - calibration_by_group
+      
+  # Cross-validation
+  cross_validation:
+    enabled: true
+    cv_folds: 5
+    stratify: true
+    shuffle: true
+    
+  # Statistical testing
+  statistical_tests:
+    enabled: true
+    tests:
+      - mcnemar_test
+      - wilcoxon_test
+      - bootstrap_confidence_intervals
+    confidence_level: 0.95
+    bootstrap_samples: 1000
+    
+  # Business metrics
+  business_metrics:
+    enabled: true
+    metrics:
+      - satisfaction_trend
+      - department_comparison
+      - risk_identification_rate
+      - actionable_insights_count
+      
+  # Thresholds for business decisions
+  thresholds:
+    high_satisfaction: 4.0
+    low_satisfaction: 2.5
+    risk_threshold: 0.3
+    
+  # Reporting
+  reporting:
+    generate_report: true
+    output_dir: "assets/reports"
+    formats: ["html", "json"]
+    include_plots: true
+    include_tables: true
+    include_recommendations: true

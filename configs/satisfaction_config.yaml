@@ -1,0 +1,91 @@
+# Satisfaction Prediction Configuration
+model:
+  name: "satisfaction_predictor"
+  type: "gradient_boosting"  # gradient_boosting, random_forest, neural_network
+  
+# Gradient Boosting settings
+gradient_boosting:
+  n_estimators: 100
+  max_depth: 6
+  learning_rate: 0.1
+  subsample: 0.8
+  colsample_bytree: 0.8
+  random_state: 42
+
+# Random Forest settings
+random_forest:
+  n_estimators: 100
+  max_depth: 10
+  min_samples_split: 5
+  min_samples_leaf: 2
+  random_state: 42
+
+# Neural Network settings
+neural_network:
+  hidden_layers: [128, 64, 32]
+  dropout_rate: 0.3
+  learning_rate: 0.001
+  batch_size: 32
+  epochs: 100
+  early_stopping:
+    patience: 10
+    monitor: "val_loss"
+
+# Feature engineering
+features:
+  text_features:
+    enabled: true
+    methods:
+      - tfidf
+      - word2vec
+      - sentiment_scores
+    tfidf:
+      max_features: 5000
+      ngram_range: [1, 2]
+    word2vec:
+      vector_size: 100
+      window: 5
+      min_count: 2
+  categorical_features:
+    - department
+    - role_level
+    - age_group
+  numerical_features:
+    - tenure_months
+    - salary_percentile
+  target_encoding:
+    enabled: true
+    smoothing: 1.0
+
+# Data splitting
+data_split:
+  test_size: 0.2
+  validation_size: 0.2
+  random_state: 42
+  stratify: true
+
+# Evaluation
+evaluation:
+  metrics:
+    regression:
+      - mae
+      - rmse
+      - mape
+      - smape
+      - r2
+    classification:
+      - accuracy
+      - f1_macro
+      - precision_macro
+      - recall_macro
+      - auroc
+  calibration:
+    enabled: true
+    method: "isotonic"  # isotonic, platt
+
+# Hyperparameter tuning
+hyperparameter_tuning:
+  enabled: true
+  method: "optuna"  # optuna, grid_search, random_search
+  n_trials: 100
+  timeout: 3600  # seconds
